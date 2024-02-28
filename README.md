@@ -6,7 +6,7 @@ This repo is the implementation of Prompt-Driven Dynamic Object-Centric Learning
 ## 1. Illustration of dynamic object-centric learning via prompts for single domain generalization. 
 
 <p align="center">
-    <img src='./Introduction.png' width=700/>
+    <img src='./Introduction.fig' width=700/>
 </p>
 
 Object-centric features capture the essential information related to individual objects.
@@ -23,8 +23,8 @@ generalization ability.
 
 ## 3. Usage
 ### 3.1 Prepare data
-#### Image Classificaton : PACS
-#### Object Detection: Daytime-Sunny, Night-Sunny, Dusk-Rainy, Night-Rainy, Daytime-Foggy, and Daytime-Snowy
+#### Image Classificaton : PACS (Art paintings, Cartoons, Photos, and Sketches)
+#### Object Detection: Diverse-Weather Dataset(Daytime-Sunny, Night-Sunny, Dusk-Rainy, Night-Rainy, and Daytime-Foggy)
 
 
 
