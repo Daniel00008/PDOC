@@ -1,0 +1,966 @@
+[32m[09/11 04:51:07 detectron2]: [0mRank of current process: 0. World size: 1
+[32m[09/11 04:51:08 detectron2]: [0mEnvironment info:
+----------------------  ---------------------------------------------------------------
+sys.platform            linux
+Python                  3.7.6 (default, Jan  8 2020, 19:59:22) [GCC 7.3.0]
+numpy                   1.19.2
+detectron2              0.6 @/opt/conda/lib/python3.7/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 10.1
+detectron2 arch flags   3.7, 5.0, 5.2, 6.0, 6.1, 7.0, 7.5
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.8.1+cu101 @/opt/conda/lib/python3.7/site-packages/torch
+PyTorch debug build     False
+GPU available           Yes
+GPU 0                   Tesla V100-SXM2-32GB (arch=7.0)
+Driver version          450.80.02
+CUDA_HOME               /usr/local/cuda
+Pillow                  9.5.0
+torchvision             0.9.1+cu101 @/opt/conda/lib/python3.7/site-packages/torchvision
+torchvision arch flags  3.5, 5.0, 6.0, 7.0, 7.5
+fvcore                  0.1.5
+iopath                  0.1.8
+cv2                     4.5.3
+----------------------  ---------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.2 Product Build 20200624 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v1.7.0 (Git Hash 7aed236906b1f7a05c0917e5257a1af05e9ff683)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 10.1
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70
+  - CuDNN 7.6.3
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=10.1, CUDNN_VERSION=7.6.3, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.8.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+[32m[09/11 04:51:08 detectron2]: [0mCommand line arguments: Namespace(config_file='configs/diverse_weather_night_rainy_test.yaml', dist_url='tcp://127.0.0.1:49152', eval_only=True, machine_rank=0, num_gpus=1, num_machines=1, opts=['MODEL.WEIGHTS', 'all_outs/diverse_weather/model_best.pth'], resume=False)
+[32m[09/11 04:51:08 detectron2]: [0mContents of args.config_file=configs/diverse_weather_night_rainy_test.yaml:
+[38;5;197mBASE_YAML[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mCOCO-Detection/faster_rcnn_R_101_C4_3x.yaml[39m[38;5;186m"[39m
+[38;5;197mDATASETS[39m[38;5;15m:[39m
+[38;5;15m        [39m[38;5;197mTRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("daytime_clear_train",)[39m
+[38;5;15m        [39m[38;5;197mTEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m('night_rainy_train',)[39m
+[38;5;197mDATALOADER[39m[38;5;15m:[39m
+[38;5;15m        [39m[38;5;197mNUM_WORKERS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m16[39m
+[38;5;197mINPUT[39m[38;5;15m:[39m
+[38;5;15m        [39m[38;5;197mMIN_SIZE_TRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m(600,)[39m
+[38;5;15m        [39m[38;5;197mMIN_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m600[39m
+[38;5;15m        [39m[38;5;197mCLIP_RANDOM_CROPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m        [39m[38;5;197mRANDOM_CROP_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m400[39m
+
+[38;5;197mSOLVER[39m[38;5;15m:[39m
+[38;5;15m        [39m[38;5;197mBASE_LR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.001[39m
+[38;5;15m        [39m[38;5;197mMAX_ITER[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m200000[39m
+[38;5;15m        [39m[38;5;197mSTEPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m40000[39m[38;5;15m,[39m[38;5;15m][39m[38;5;15m       [39m
+[38;5;15m        [39m[38;5;197mWARMUP_ITERS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m        [39m[38;5;197mIMS_PER_BATCH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4[39m
+[38;5;15m        [39m[38;5;197mCHECKPOINT_PERIOD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1000000[39m
+[38;5;197mMODEL[39m[38;5;15m:[39m
+[38;5;15m        [39m[38;5;197mBACKBONE[39m[38;5;15m:[39m
+[38;5;15m                [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mClipRN101[39m
+[38;5;15m        [39m[38;5;197mWEIGHTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186m"[39m
+[38;5;15m        [39m[38;5;197mCLIP_IMAGE_ENCODER_NAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186mRN101[39m[38;5;186m'[39m
+[38;5;15m        [39m[38;5;197mMETA_ARCHITECTURE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186mClipRCNNWithClipBackboneWithOffsetGenTrainable[39m[38;5;186m'[39m
+
+[38;5;15m        [39m[38;5;197mPROPOSAL_GENERATOR[39m[38;5;15m:[39m
+[38;5;15m                [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186mSBRPN[39m[38;5;186m'[39m
+[38;5;15m        [39m[38;5;197mROI_HEADS[39m[38;5;15m:[39m
+[38;5;15m                [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186mClipRes5ROIHeadsAttn[39m[38;5;186m'[39m[38;5;15m        [39m
+[38;5;15m                [39m[38;5;242m# BATCH_SIZE_PER_IMAGE: 128   # faster, and good enough for this toy dataset (default: 512)[39m
+[38;5;15m                [39m[38;5;197mNUM_CLASSES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m7[39m
+[38;5;197mTEST[39m[38;5;15m:[39m
+[38;5;15m        [39m[38;5;197mEVAL_SAVE_PERIOD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m5000[39m
+[38;5;197mOUTPUT_DIR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mall_outs/diverse_weather[39m[38;5;186m"[39m
+[38;5;197mVIS_PERIOD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m5000[39m
+[38;5;197mOFFSET_OPT_INTERVAL[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m20000000[39m[38;5;15m][39m
+[38;5;197mOFFSET_OPT_ITERS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1000[39m
+
+[32m[09/11 04:51:08 detectron2]: [0mRunning with full config:
+[38;5;197mAUG_PROB[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.5[39m
+[38;5;197mBASE_YAML[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mCOCO-Detection/faster_rcnn_R_101_C4_3x.yaml[39m
+[38;5;197mCUDNN_BENCHMARK[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;197mDATALOADER[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mASPECT_RATIO_GROUPING[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mtrue[39m
+[38;5;15m  [39m[38;5;197mFILTER_EMPTY_ANNOTATIONS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mtrue[39m
+[38;5;15m  [39m[38;5;197mNUM_WORKERS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m16[39m
+[38;5;15m  [39m[38;5;197mREPEAT_THRESHOLD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.0[39m
+[38;5;15m  [39m[38;5;197mSAMPLER_TRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrainingSampler[39m
+[38;5;197mDATASETS[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mPRECOMPUTED_PROPOSAL_TOPK_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1000[39m
+[38;5;15m  [39m[38;5;197mPRECOMPUTED_PROPOSAL_TOPK_TRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m2000[39m
+[38;5;15m  [39m[38;5;197mPROPOSAL_FILES_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mPROPOSAL_FILES_TRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mTEST[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mnight_rainy_train[39m
+[38;5;15m  [39m[38;5;197mTRAIN[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mdaytime_clear_train[39m
+[38;5;197mDOMAIN_NAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;197mGLOBAL[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mHACK[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;197mINPUT[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mCLIP_RANDOM_CROPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mtrue[39m
+[38;5;15m  [39m[38;5;197mCLIP_WITH_IMG[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m  [39m[38;5;197mCROP[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mENABLED[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m    [39m[38;5;197mSIZE[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0.9[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0.9[39m
+[38;5;15m    [39m[38;5;197mTYPE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mrelative_range[39m
+[38;5;15m  [39m[38;5;197mFORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mBGR[39m
+[38;5;15m  [39m[38;5;197mIMAGE_JITTER[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m  [39m[38;5;197mMASK_FORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mpolygon[39m
+[38;5;15m  [39m[38;5;197mMAX_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1333[39m
+[38;5;15m  [39m[38;5;197mMAX_SIZE_TRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1333[39m
+[38;5;15m  [39m[38;5;197mMIN_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m600[39m
+[38;5;15m  [39m[38;5;197mMIN_SIZE_TRAIN[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m600[39m
+[38;5;15m  [39m[38;5;197mMIN_SIZE_TRAIN_SAMPLING[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mchoice[39m
+[38;5;15m  [39m[38;5;197mRANDOM_CROP_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m400[39m
+[38;5;15m  [39m[38;5;197mRANDOM_FLIP[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mhorizontal[39m
+[38;5;197mMODEL[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mANCHOR_GENERATOR[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mANGLES[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m-90[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m90[39m
+[38;5;15m    [39m[38;5;197mASPECT_RATIOS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0.5[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m2.0[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mDefaultAnchorGenerator[39m
+[38;5;15m    [39m[38;5;197mOFFSET[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.0[39m
+[38;5;15m    [39m[38;5;197mSIZES[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m32[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m64[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m128[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m256[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m512[39m
+[38;5;15m  [39m[38;5;197mBACKBONE[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mFREEZE_AT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m2[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mClipRN101[39m
+[38;5;15m    [39m[38;5;197mUNFREEZE[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mlayer3[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mlayer4[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mattnpool[39m
+[38;5;15m  [39m[38;5;197mCLIP_IMAGE_ENCODER_NAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mRN101[39m
+[38;5;15m  [39m[38;5;197mDEVICE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mcuda[39m
+[38;5;15m  [39m[38;5;197mFPN[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mFUSE_TYPE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141msum[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m    [39m[38;5;197mOUT_CHANNELS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m256[39m
+[38;5;15m  [39m[38;5;197mGLOBAL_GND[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m  [39m[38;5;197mKEYPOINT_ON[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m  [39m[38;5;197mLOAD_PROPOSALS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m  [39m[38;5;197mMASK_ON[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m  [39m[38;5;197mMETA_ARCHITECTURE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mClipRCNNWithClipBackboneWithOffsetGenTrainable[39m
+[38;5;15m  [39m[38;5;197mPANOPTIC_FPN[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mCOMBINE[39m[38;5;15m:[39m
+[38;5;15m      [39m[38;5;197mENABLED[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mtrue[39m
+[38;5;15m      [39m[38;5;197mINSTANCES_CONFIDENCE_THRESH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.5[39m
+[38;5;15m      [39m[38;5;197mOVERLAP_THRESH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.5[39m
+[38;5;15m      [39m[38;5;197mSTUFF_AREA_LIMIT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4096[39m
+[38;5;15m    [39m[38;5;197mINSTANCE_LOSS_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m  [39m[38;5;197mPIXEL_MEAN[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m103.53[39m
+[38;5;15m  [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m116.28[39m
+[38;5;15m  [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m123.675[39m
+[38;5;15m  [39m[38;5;197mPIXEL_STD[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m  [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m  [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m  [39m[38;5;197mPROPOSAL_GENERATOR[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mMIN_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mSBRPN[39m
+[38;5;15m  [39m[38;5;197mRENAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mRESNETS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mDEFORM_MODULATED[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m    [39m[38;5;197mDEFORM_NUM_GROUPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mDEFORM_ON_PER_STAGE[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m    [39m[38;5;197mDEPTH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m101[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mFrozenBN[39m
+[38;5;15m    [39m[38;5;197mNUM_GROUPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mOUT_FEATURES[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mres4[39m
+[38;5;15m    [39m[38;5;197mRES2_OUT_CHANNELS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m256[39m
+[38;5;15m    [39m[38;5;197mRES5_DILATION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mSTEM_OUT_CHANNELS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m64[39m
+[38;5;15m    [39m[38;5;197mSTRIDE_IN_1X1[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mtrue[39m
+[38;5;15m    [39m[38;5;197mWIDTH_PER_GROUP[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m64[39m
+[38;5;15m  [39m[38;5;197mRETINANET[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mBBOX_REG_LOSS_TYPE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141msmooth_l1[39m
+[38;5;15m    [39m[38;5;197mBBOX_REG_WEIGHTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m&id001[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m    [39m[38;5;197mFOCAL_LOSS_ALPHA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.25[39m
+[38;5;15m    [39m[38;5;197mFOCAL_LOSS_GAMMA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m2.0[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mp3[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mp4[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mp5[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mp6[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mp7[39m
+[38;5;15m    [39m[38;5;197mIOU_LABELS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m-1[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mIOU_THRESHOLDS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0.4[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0.5[39m
+[38;5;15m    [39m[38;5;197mNMS_THRESH_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.5[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m    [39m[38;5;197mNUM_CLASSES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m80[39m
+[38;5;15m    [39m[38;5;197mNUM_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4[39m
+[38;5;15m    [39m[38;5;197mPRIOR_PROB[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.01[39m
+[38;5;15m    [39m[38;5;197mSCORE_THRESH_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.05[39m
+[38;5;15m    [39m[38;5;197mSMOOTH_L1_LOSS_BETA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.1[39m
+[38;5;15m    [39m[38;5;197mTOPK_CANDIDATES_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1000[39m
+[38;5;15m  [39m[38;5;197mROI_BOX_CASCADE_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mBBOX_REG_WEIGHTS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m10.0[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m10.0[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m5.0[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m5.0[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m20.0[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m20.0[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m10.0[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m10.0[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m30.0[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m30.0[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m15.0[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m15.0[39m
+[38;5;15m    [39m[38;5;197mIOUS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0.5[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0.6[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0.7[39m
+[38;5;15m  [39m[38;5;197mROI_BOX_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mBBOX_REG_LOSS_TYPE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141msmooth_l1[39m
+[38;5;15m    [39m[38;5;197mBBOX_REG_LOSS_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m    [39m[38;5;197mBBOX_REG_WEIGHTS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m10.0[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m10.0[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m5.0[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m5.0[39m
+[38;5;15m    [39m[38;5;197mCLS_AGNOSTIC_BBOX_REG[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m    [39m[38;5;197mCONV_DIM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m256[39m
+[38;5;15m    [39m[38;5;197mFC_DIM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1024[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m    [39m[38;5;197mNUM_CONV[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m    [39m[38;5;197mNUM_FC[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m    [39m[38;5;197mPOOLER_RESOLUTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m14[39m
+[38;5;15m    [39m[38;5;197mPOOLER_SAMPLING_RATIO[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m    [39m[38;5;197mPOOLER_TYPE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mROIAlignV2[39m
+[38;5;15m    [39m[38;5;197mSMOOTH_L1_BETA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.0[39m
+[38;5;15m    [39m[38;5;197mTRAIN_ON_PRED_BOXES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m  [39m[38;5;197mROI_HEADS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mBATCH_SIZE_PER_IMAGE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m512[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mres4[39m
+[38;5;15m    [39m[38;5;197mIOU_LABELS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mIOU_THRESHOLDS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0.5[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mClipRes5ROIHeadsAttn[39m
+[38;5;15m    [39m[38;5;197mNMS_THRESH_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.5[39m
+[38;5;15m    [39m[38;5;197mNUM_CLASSES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m7[39m
+[38;5;15m    [39m[38;5;197mPOSITIVE_FRACTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.25[39m
+[38;5;15m    [39m[38;5;197mPROPOSAL_APPEND_GT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mtrue[39m
+[38;5;15m    [39m[38;5;197mSCORE_THRESH_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.05[39m
+[38;5;15m  [39m[38;5;197mROI_KEYPOINT_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mCONV_DIMS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m512[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m512[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m512[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m512[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m512[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m512[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m512[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m512[39m
+[38;5;15m    [39m[38;5;197mLOSS_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m    [39m[38;5;197mMIN_KEYPOINTS_PER_IMAGE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mKRCNNConvDeconvUpsampleHead[39m
+[38;5;15m    [39m[38;5;197mNORMALIZE_LOSS_BY_VISIBLE_KEYPOINTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mtrue[39m
+[38;5;15m    [39m[38;5;197mNUM_KEYPOINTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m17[39m
+[38;5;15m    [39m[38;5;197mPOOLER_RESOLUTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m14[39m
+[38;5;15m    [39m[38;5;197mPOOLER_SAMPLING_RATIO[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m    [39m[38;5;197mPOOLER_TYPE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mROIAlignV2[39m
+[38;5;15m  [39m[38;5;197mROI_MASK_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mCLS_AGNOSTIC_MASK[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m    [39m[38;5;197mCONV_DIM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m256[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mMaskRCNNConvUpsampleHead[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m    [39m[38;5;197mNUM_CONV[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m    [39m[38;5;197mPOOLER_RESOLUTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m14[39m
+[38;5;15m    [39m[38;5;197mPOOLER_SAMPLING_RATIO[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m    [39m[38;5;197mPOOLER_TYPE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mROIAlignV2[39m
+[38;5;15m  [39m[38;5;197mRPN[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mBATCH_SIZE_PER_IMAGE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m256[39m
+[38;5;15m    [39m[38;5;197mBBOX_REG_LOSS_TYPE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141msmooth_l1[39m
+[38;5;15m    [39m[38;5;197mBBOX_REG_LOSS_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m    [39m[38;5;197mBBOX_REG_WEIGHTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m*id001[39m
+[38;5;15m    [39m[38;5;197mBOUNDARY_THRESH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m-1[39m
+[38;5;15m    [39m[38;5;197mCONV_DIMS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m-1[39m
+[38;5;15m    [39m[38;5;197mHEAD_NAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mStandardRPNHead[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mres4[39m
+[38;5;15m    [39m[38;5;197mIOU_LABELS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m-1[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mIOU_THRESHOLDS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0.3[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0.7[39m
+[38;5;15m    [39m[38;5;197mLOSS_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m    [39m[38;5;197mNMS_THRESH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.7[39m
+[38;5;15m    [39m[38;5;197mPOSITIVE_FRACTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.5[39m
+[38;5;15m    [39m[38;5;197mPOST_NMS_TOPK_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1000[39m
+[38;5;15m    [39m[38;5;197mPOST_NMS_TOPK_TRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m2000[39m
+[38;5;15m    [39m[38;5;197mPRE_NMS_TOPK_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m6000[39m
+[38;5;15m    [39m[38;5;197mPRE_NMS_TOPK_TRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m12000[39m
+[38;5;15m    [39m[38;5;197mSMOOTH_L1_BETA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.0[39m
+[38;5;15m  [39m[38;5;197mSEM_SEG_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mCOMMON_STRIDE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4[39m
+[38;5;15m    [39m[38;5;197mCONVS_DIM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m128[39m
+[38;5;15m    [39m[38;5;197mIGNORE_VALUE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m255[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mp2[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mp3[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mp4[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mp5[39m
+[38;5;15m    [39m[38;5;197mLOSS_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mSemSegFPNHead[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mGN[39m
+[38;5;15m    [39m[38;5;197mNUM_CLASSES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m54[39m
+[38;5;15m  [39m[38;5;197mUSE_PROJ[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mtrue[39m
+[38;5;15m  [39m[38;5;197mWEIGHTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mall_outs/diverse_weather/model_best.pth[39m
+[38;5;197mOFFSET_DOMAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;197mOFFSET_DOMAIN_TEXT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;197mOFFSET_FROZENBN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;197mOFFSET_NAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;197mOFFSET_OPT_INTERVAL[39m[38;5;15m:[39m
+[38;5;15m-[39m[38;5;15m [39m[38;5;141m20000000[39m
+[38;5;197mOFFSET_OPT_ITERS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1000[39m
+[38;5;197mOUTPUT_DIR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mall_outs/diverse_weather[39m
+[38;5;197mSEED[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m-1[39m
+[38;5;197mSOLVER[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mAMP[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mENABLED[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m  [39m[38;5;197mBASE_LR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.001[39m
+[38;5;15m  [39m[38;5;197mBIAS_LR_FACTOR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m  [39m[38;5;197mCHECKPOINT_PERIOD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1000000[39m
+[38;5;15m  [39m[38;5;197mCLIP_GRADIENTS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mCLIP_TYPE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mvalue[39m
+[38;5;15m    [39m[38;5;197mCLIP_VALUE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m    [39m[38;5;197mENABLED[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m    [39m[38;5;197mNORM_TYPE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m2.0[39m
+[38;5;15m  [39m[38;5;197mGAMMA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.1[39m
+[38;5;15m  [39m[38;5;197mIMS_PER_BATCH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4[39m
+[38;5;15m  [39m[38;5;197mLR_SCHEDULER_NAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mWarmupMultiStepLR[39m
+[38;5;15m  [39m[38;5;197mMAX_ITER[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m200000[39m
+[38;5;15m  [39m[38;5;197mMOMENTUM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.9[39m
+[38;5;15m  [39m[38;5;197mNESTEROV[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m  [39m[38;5;197mREFERENCE_WORLD_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m  [39m[38;5;197mSTEPS[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m40000[39m
+[38;5;15m  [39m[38;5;197mWARMUP_FACTOR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.001[39m
+[38;5;15m  [39m[38;5;197mWARMUP_ITERS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m  [39m[38;5;197mWARMUP_METHOD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mlinear[39m
+[38;5;15m  [39m[38;5;197mWEIGHT_DECAY[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.0001[39m
+[38;5;15m  [39m[38;5;197mWEIGHT_DECAY_BIAS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mnull[39m
+[38;5;15m  [39m[38;5;197mWEIGHT_DECAY_NORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.0[39m
+[38;5;197mTEST[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mAUG[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mENABLED[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m    [39m[38;5;197mFLIP[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mtrue[39m
+[38;5;15m    [39m[38;5;197mMAX_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4000[39m
+[38;5;15m    [39m[38;5;197mMIN_SIZES[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m400[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m500[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m600[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m700[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m800[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m900[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m1000[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m1100[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m1200[39m
+[38;5;15m  [39m[38;5;197mDETECTIONS_PER_IMAGE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m100[39m
+[38;5;15m  [39m[38;5;197mEVAL_PERIOD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m  [39m[38;5;197mEVAL_SAVE_PERIOD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m5000[39m
+[38;5;15m  [39m[38;5;197mEXPECTED_RESULTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mKEYPOINT_OKS_SIGMAS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mPRECISE_BN[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mENABLED[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m    [39m[38;5;197mNUM_ITER[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m200[39m
+[38;5;197mVERSION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m2[39m
+[38;5;197mVIS_PERIOD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m5000[39m
+
+[32m[09/11 04:51:08 detectron2]: [0mFull config saved to all_outs/diverse_weather/config.yaml
+[32m[09/11 04:51:08 d2.utils.env]: [0mUsing a generated random seed 8907295
+Command Line Args: Namespace(config_file='configs/diverse_weather_night_rainy_test.yaml', dist_url='tcp://127.0.0.1:49152', eval_only=True, machine_rank=0, num_gpus=1, num_machines=1, opts=['MODEL.WEIGHTS', 'all_outs/diverse_weather/model_best.pth'], resume=False)
+[5m[31mWARNING[0m [32m[09/11 04:51:08 d2.config.compat]: [0mConfig 'configs/diverse_weather_night_rainy_test.yaml' has no VERSION. Assuming it to be compatible with latest v2.
+[5m[31mWARNING[0m [32m[09/11 04:51:08 d2.config.compat]: [0mConfig 'configs/diverse_weather_night_rainy_test.yaml' has no VERSION. Assuming it to be compatible with latest v2.
+[32m[09/11 04:51:08 detectron2]: [0mRank of current process: 0. World size: 1
+[32m[09/11 04:51:09 detectron2]: [0mEnvironment info:
+----------------------  ---------------------------------------------------------------
+sys.platform            linux
+Python                  3.7.6 (default, Jan  8 2020, 19:59:22) [GCC 7.3.0]
+numpy                   1.19.2
+detectron2              0.6 @/opt/conda/lib/python3.7/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 10.1
+detectron2 arch flags   3.7, 5.0, 5.2, 6.0, 6.1, 7.0, 7.5
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.8.1+cu101 @/opt/conda/lib/python3.7/site-packages/torch
+PyTorch debug build     False
+GPU available           Yes
+GPU 0                   Tesla V100-SXM2-32GB (arch=7.0)
+Driver version          450.80.02
+CUDA_HOME               /usr/local/cuda
+Pillow                  9.5.0
+torchvision             0.9.1+cu101 @/opt/conda/lib/python3.7/site-packages/torchvision
+torchvision arch flags  3.5, 5.0, 6.0, 7.0, 7.5
+fvcore                  0.1.5
+iopath                  0.1.8
+cv2                     4.5.3
+----------------------  ---------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.2 Product Build 20200624 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v1.7.0 (Git Hash 7aed236906b1f7a05c0917e5257a1af05e9ff683)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 10.1
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70
+  - CuDNN 7.6.3
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=10.1, CUDNN_VERSION=7.6.3, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.8.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+[32m[09/11 04:51:09 detectron2]: [0mCommand line arguments: Namespace(config_file='configs/diverse_weather_night_rainy_test.yaml', dist_url='tcp://127.0.0.1:49152', eval_only=True, machine_rank=0, num_gpus=1, num_machines=1, opts=['MODEL.WEIGHTS', 'all_outs/diverse_weather/model_best.pth'], resume=False)
+[32m[09/11 04:51:09 detectron2]: [0mContents of args.config_file=configs/diverse_weather_night_rainy_test.yaml:
+[38;5;197mBASE_YAML[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mCOCO-Detection/faster_rcnn_R_101_C4_3x.yaml[39m[38;5;186m"[39m
+[38;5;197mDATASETS[39m[38;5;15m:[39m
+[38;5;15m        [39m[38;5;197mTRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("daytime_clear_train",)[39m
+[38;5;15m        [39m[38;5;197mTEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m('night_rainy_train',)[39m
+[38;5;197mDATALOADER[39m[38;5;15m:[39m
+[38;5;15m        [39m[38;5;197mNUM_WORKERS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m16[39m
+[38;5;197mINPUT[39m[38;5;15m:[39m
+[38;5;15m        [39m[38;5;197mMIN_SIZE_TRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m(600,)[39m
+[38;5;15m        [39m[38;5;197mMIN_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m600[39m
+[38;5;15m        [39m[38;5;197mCLIP_RANDOM_CROPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m        [39m[38;5;197mRANDOM_CROP_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m400[39m
+
+[38;5;197mSOLVER[39m[38;5;15m:[39m
+[38;5;15m        [39m[38;5;197mBASE_LR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.001[39m
+[38;5;15m        [39m[38;5;197mMAX_ITER[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m200000[39m
+[38;5;15m        [39m[38;5;197mSTEPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m40000[39m[38;5;15m,[39m[38;5;15m][39m[38;5;15m       [39m
+[38;5;15m        [39m[38;5;197mWARMUP_ITERS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m        [39m[38;5;197mIMS_PER_BATCH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4[39m
+[38;5;15m        [39m[38;5;197mCHECKPOINT_PERIOD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1000000[39m
+[38;5;197mMODEL[39m[38;5;15m:[39m
+[38;5;15m        [39m[38;5;197mBACKBONE[39m[38;5;15m:[39m
+[38;5;15m                [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mClipRN101[39m
+[38;5;15m        [39m[38;5;197mWEIGHTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186m"[39m
+[38;5;15m        [39m[38;5;197mCLIP_IMAGE_ENCODER_NAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186mRN101[39m[38;5;186m'[39m
+[38;5;15m        [39m[38;5;197mMETA_ARCHITECTURE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186mClipRCNNWithClipBackboneWithOffsetGenTrainable[39m[38;5;186m'[39m
+
+[38;5;15m        [39m[38;5;197mPROPOSAL_GENERATOR[39m[38;5;15m:[39m
+[38;5;15m                [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186mSBRPN[39m[38;5;186m'[39m
+[38;5;15m        [39m[38;5;197mROI_HEADS[39m[38;5;15m:[39m
+[38;5;15m                [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186mClipRes5ROIHeadsAttn[39m[38;5;186m'[39m[38;5;15m        [39m
+[38;5;15m                [39m[38;5;242m# BATCH_SIZE_PER_IMAGE: 128   # faster, and good enough for this toy dataset (default: 512)[39m
+[38;5;15m                [39m[38;5;197mNUM_CLASSES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m7[39m
+[38;5;197mTEST[39m[38;5;15m:[39m
+[38;5;15m        [39m[38;5;197mEVAL_SAVE_PERIOD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m5000[39m
+[38;5;197mOUTPUT_DIR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mall_outs/diverse_weather[39m[38;5;186m"[39m
+[38;5;197mVIS_PERIOD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m5000[39m
+[38;5;197mOFFSET_OPT_INTERVAL[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m20000000[39m[38;5;15m][39m
+[38;5;197mOFFSET_OPT_ITERS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1000[39m
+
+[32m[09/11 04:51:09 detectron2]: [0mRunning with full config:
+[38;5;197mAUG_PROB[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.5[39m
+[38;5;197mBASE_YAML[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mCOCO-Detection/faster_rcnn_R_101_C4_3x.yaml[39m
+[38;5;197mCUDNN_BENCHMARK[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;197mDATALOADER[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mASPECT_RATIO_GROUPING[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mtrue[39m
+[38;5;15m  [39m[38;5;197mFILTER_EMPTY_ANNOTATIONS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mtrue[39m
+[38;5;15m  [39m[38;5;197mNUM_WORKERS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m16[39m
+[38;5;15m  [39m[38;5;197mREPEAT_THRESHOLD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.0[39m
+[38;5;15m  [39m[38;5;197mSAMPLER_TRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrainingSampler[39m
+[38;5;197mDATASETS[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mPRECOMPUTED_PROPOSAL_TOPK_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1000[39m
+[38;5;15m  [39m[38;5;197mPRECOMPUTED_PROPOSAL_TOPK_TRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m2000[39m
+[38;5;15m  [39m[38;5;197mPROPOSAL_FILES_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mPROPOSAL_FILES_TRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mTEST[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mnight_rainy_train[39m
+[38;5;15m  [39m[38;5;197mTRAIN[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mdaytime_clear_train[39m
+[38;5;197mDOMAIN_NAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;197mGLOBAL[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mHACK[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;197mINPUT[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mCLIP_RANDOM_CROPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mtrue[39m
+[38;5;15m  [39m[38;5;197mCLIP_WITH_IMG[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m  [39m[38;5;197mCROP[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mENABLED[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m    [39m[38;5;197mSIZE[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0.9[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0.9[39m
+[38;5;15m    [39m[38;5;197mTYPE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mrelative_range[39m
+[38;5;15m  [39m[38;5;197mFORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mBGR[39m
+[38;5;15m  [39m[38;5;197mIMAGE_JITTER[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m  [39m[38;5;197mMASK_FORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mpolygon[39m
+[38;5;15m  [39m[38;5;197mMAX_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1333[39m
+[38;5;15m  [39m[38;5;197mMAX_SIZE_TRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1333[39m
+[38;5;15m  [39m[38;5;197mMIN_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m600[39m
+[38;5;15m  [39m[38;5;197mMIN_SIZE_TRAIN[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m600[39m
+[38;5;15m  [39m[38;5;197mMIN_SIZE_TRAIN_SAMPLING[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mchoice[39m
+[38;5;15m  [39m[38;5;197mRANDOM_CROP_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m400[39m
+[38;5;15m  [39m[38;5;197mRANDOM_FLIP[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mhorizontal[39m
+[38;5;197mMODEL[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mANCHOR_GENERATOR[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mANGLES[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m-90[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m90[39m
+[38;5;15m    [39m[38;5;197mASPECT_RATIOS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0.5[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m2.0[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mDefaultAnchorGenerator[39m
+[38;5;15m    [39m[38;5;197mOFFSET[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.0[39m
+[38;5;15m    [39m[38;5;197mSIZES[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m32[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m64[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m128[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m256[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m512[39m
+[38;5;15m  [39m[38;5;197mBACKBONE[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mFREEZE_AT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m2[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mClipRN101[39m
+[38;5;15m    [39m[38;5;197mUNFREEZE[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mlayer3[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mlayer4[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mattnpool[39m
+[38;5;15m  [39m[38;5;197mCLIP_IMAGE_ENCODER_NAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mRN101[39m
+[38;5;15m  [39m[38;5;197mDEVICE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mcuda[39m
+[38;5;15m  [39m[38;5;197mFPN[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mFUSE_TYPE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141msum[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m    [39m[38;5;197mOUT_CHANNELS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m256[39m
+[38;5;15m  [39m[38;5;197mGLOBAL_GND[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m  [39m[38;5;197mKEYPOINT_ON[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m  [39m[38;5;197mLOAD_PROPOSALS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m  [39m[38;5;197mMASK_ON[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m  [39m[38;5;197mMETA_ARCHITECTURE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mClipRCNNWithClipBackboneWithOffsetGenTrainable[39m
+[38;5;15m  [39m[38;5;197mPANOPTIC_FPN[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mCOMBINE[39m[38;5;15m:[39m
+[38;5;15m      [39m[38;5;197mENABLED[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mtrue[39m
+[38;5;15m      [39m[38;5;197mINSTANCES_CONFIDENCE_THRESH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.5[39m
+[38;5;15m      [39m[38;5;197mOVERLAP_THRESH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.5[39m
+[38;5;15m      [39m[38;5;197mSTUFF_AREA_LIMIT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4096[39m
+[38;5;15m    [39m[38;5;197mINSTANCE_LOSS_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m  [39m[38;5;197mPIXEL_MEAN[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m103.53[39m
+[38;5;15m  [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m116.28[39m
+[38;5;15m  [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m123.675[39m
+[38;5;15m  [39m[38;5;197mPIXEL_STD[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m  [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m  [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m  [39m[38;5;197mPROPOSAL_GENERATOR[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mMIN_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mSBRPN[39m
+[38;5;15m  [39m[38;5;197mRENAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mRESNETS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mDEFORM_MODULATED[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m    [39m[38;5;197mDEFORM_NUM_GROUPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mDEFORM_ON_PER_STAGE[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m    [39m[38;5;197mDEPTH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m101[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mFrozenBN[39m
+[38;5;15m    [39m[38;5;197mNUM_GROUPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mOUT_FEATURES[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mres4[39m
+[38;5;15m    [39m[38;5;197mRES2_OUT_CHANNELS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m256[39m
+[38;5;15m    [39m[38;5;197mRES5_DILATION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mSTEM_OUT_CHANNELS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m64[39m
+[38;5;15m    [39m[38;5;197mSTRIDE_IN_1X1[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mtrue[39m
+[38;5;15m    [39m[38;5;197mWIDTH_PER_GROUP[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m64[39m
+[38;5;15m  [39m[38;5;197mRETINANET[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mBBOX_REG_LOSS_TYPE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141msmooth_l1[39m
+[38;5;15m    [39m[38;5;197mBBOX_REG_WEIGHTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m&id001[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m    [39m[38;5;197mFOCAL_LOSS_ALPHA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.25[39m
+[38;5;15m    [39m[38;5;197mFOCAL_LOSS_GAMMA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m2.0[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mp3[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mp4[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mp5[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mp6[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mp7[39m
+[38;5;15m    [39m[38;5;197mIOU_LABELS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m-1[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mIOU_THRESHOLDS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0.4[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0.5[39m
+[38;5;15m    [39m[38;5;197mNMS_THRESH_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.5[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m    [39m[38;5;197mNUM_CLASSES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m80[39m
+[38;5;15m    [39m[38;5;197mNUM_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4[39m
+[38;5;15m    [39m[38;5;197mPRIOR_PROB[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.01[39m
+[38;5;15m    [39m[38;5;197mSCORE_THRESH_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.05[39m
+[38;5;15m    [39m[38;5;197mSMOOTH_L1_LOSS_BETA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.1[39m
+[38;5;15m    [39m[38;5;197mTOPK_CANDIDATES_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1000[39m
+[38;5;15m  [39m[38;5;197mROI_BOX_CASCADE_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mBBOX_REG_WEIGHTS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m10.0[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m10.0[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m5.0[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m5.0[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m20.0[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m20.0[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m10.0[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m10.0[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m30.0[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m30.0[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m15.0[39m
+[38;5;15m      [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m15.0[39m
+[38;5;15m    [39m[38;5;197mIOUS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0.5[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0.6[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0.7[39m
+[38;5;15m  [39m[38;5;197mROI_BOX_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mBBOX_REG_LOSS_TYPE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141msmooth_l1[39m
+[38;5;15m    [39m[38;5;197mBBOX_REG_LOSS_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m    [39m[38;5;197mBBOX_REG_WEIGHTS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m10.0[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m10.0[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m5.0[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m5.0[39m
+[38;5;15m    [39m[38;5;197mCLS_AGNOSTIC_BBOX_REG[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m    [39m[38;5;197mCONV_DIM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m256[39m
+[38;5;15m    [39m[38;5;197mFC_DIM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1024[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m    [39m[38;5;197mNUM_CONV[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m    [39m[38;5;197mNUM_FC[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m    [39m[38;5;197mPOOLER_RESOLUTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m14[39m
+[38;5;15m    [39m[38;5;197mPOOLER_SAMPLING_RATIO[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m    [39m[38;5;197mPOOLER_TYPE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mROIAlignV2[39m
+[38;5;15m    [39m[38;5;197mSMOOTH_L1_BETA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.0[39m
+[38;5;15m    [39m[38;5;197mTRAIN_ON_PRED_BOXES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m  [39m[38;5;197mROI_HEADS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mBATCH_SIZE_PER_IMAGE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m512[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mres4[39m
+[38;5;15m    [39m[38;5;197mIOU_LABELS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mIOU_THRESHOLDS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0.5[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mClipRes5ROIHeadsAttn[39m
+[38;5;15m    [39m[38;5;197mNMS_THRESH_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.5[39m
+[38;5;15m    [39m[38;5;197mNUM_CLASSES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m7[39m
+[38;5;15m    [39m[38;5;197mPOSITIVE_FRACTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.25[39m
+[38;5;15m    [39m[38;5;197mPROPOSAL_APPEND_GT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mtrue[39m
+[38;5;15m    [39m[38;5;197mSCORE_THRESH_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.05[39m
+[38;5;15m  [39m[38;5;197mROI_KEYPOINT_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mCONV_DIMS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m512[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m512[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m512[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m512[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m512[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m512[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m512[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m512[39m
+[38;5;15m    [39m[38;5;197mLOSS_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m    [39m[38;5;197mMIN_KEYPOINTS_PER_IMAGE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mKRCNNConvDeconvUpsampleHead[39m
+[38;5;15m    [39m[38;5;197mNORMALIZE_LOSS_BY_VISIBLE_KEYPOINTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mtrue[39m
+[38;5;15m    [39m[38;5;197mNUM_KEYPOINTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m17[39m
+[38;5;15m    [39m[38;5;197mPOOLER_RESOLUTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m14[39m
+[38;5;15m    [39m[38;5;197mPOOLER_SAMPLING_RATIO[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m    [39m[38;5;197mPOOLER_TYPE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mROIAlignV2[39m
+[38;5;15m  [39m[38;5;197mROI_MASK_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mCLS_AGNOSTIC_MASK[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m    [39m[38;5;197mCONV_DIM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m256[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mMaskRCNNConvUpsampleHead[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m    [39m[38;5;197mNUM_CONV[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m    [39m[38;5;197mPOOLER_RESOLUTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m14[39m
+[38;5;15m    [39m[38;5;197mPOOLER_SAMPLING_RATIO[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m    [39m[38;5;197mPOOLER_TYPE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mROIAlignV2[39m
+[38;5;15m  [39m[38;5;197mRPN[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mBATCH_SIZE_PER_IMAGE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m256[39m
+[38;5;15m    [39m[38;5;197mBBOX_REG_LOSS_TYPE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141msmooth_l1[39m
+[38;5;15m    [39m[38;5;197mBBOX_REG_LOSS_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m    [39m[38;5;197mBBOX_REG_WEIGHTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m*id001[39m
+[38;5;15m    [39m[38;5;197mBOUNDARY_THRESH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m-1[39m
+[38;5;15m    [39m[38;5;197mCONV_DIMS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m-1[39m
+[38;5;15m    [39m[38;5;197mHEAD_NAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mStandardRPNHead[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mres4[39m
+[38;5;15m    [39m[38;5;197mIOU_LABELS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m-1[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mIOU_THRESHOLDS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0.3[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m0.7[39m
+[38;5;15m    [39m[38;5;197mLOSS_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m    [39m[38;5;197mNMS_THRESH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.7[39m
+[38;5;15m    [39m[38;5;197mPOSITIVE_FRACTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.5[39m
+[38;5;15m    [39m[38;5;197mPOST_NMS_TOPK_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1000[39m
+[38;5;15m    [39m[38;5;197mPOST_NMS_TOPK_TRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m2000[39m
+[38;5;15m    [39m[38;5;197mPRE_NMS_TOPK_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m6000[39m
+[38;5;15m    [39m[38;5;197mPRE_NMS_TOPK_TRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m12000[39m
+[38;5;15m    [39m[38;5;197mSMOOTH_L1_BETA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.0[39m
+[38;5;15m  [39m[38;5;197mSEM_SEG_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mCOMMON_STRIDE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4[39m
+[38;5;15m    [39m[38;5;197mCONVS_DIM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m128[39m
+[38;5;15m    [39m[38;5;197mIGNORE_VALUE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m255[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mp2[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mp3[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mp4[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141mp5[39m
+[38;5;15m    [39m[38;5;197mLOSS_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mSemSegFPNHead[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mGN[39m
+[38;5;15m    [39m[38;5;197mNUM_CLASSES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m54[39m
+[38;5;15m  [39m[38;5;197mUSE_PROJ[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mtrue[39m
+[38;5;15m  [39m[38;5;197mWEIGHTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mall_outs/diverse_weather/model_best.pth[39m
+[38;5;197mOFFSET_DOMAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;197mOFFSET_DOMAIN_TEXT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;197mOFFSET_FROZENBN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;197mOFFSET_NAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;197mOFFSET_OPT_INTERVAL[39m[38;5;15m:[39m
+[38;5;15m-[39m[38;5;15m [39m[38;5;141m20000000[39m
+[38;5;197mOFFSET_OPT_ITERS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1000[39m
+[38;5;197mOUTPUT_DIR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mall_outs/diverse_weather[39m
+[38;5;197mSEED[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m-1[39m
+[38;5;197mSOLVER[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mAMP[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mENABLED[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m  [39m[38;5;197mBASE_LR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.001[39m
+[38;5;15m  [39m[38;5;197mBIAS_LR_FACTOR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m  [39m[38;5;197mCHECKPOINT_PERIOD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1000000[39m
+[38;5;15m  [39m[38;5;197mCLIP_GRADIENTS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mCLIP_TYPE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mvalue[39m
+[38;5;15m    [39m[38;5;197mCLIP_VALUE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.0[39m
+[38;5;15m    [39m[38;5;197mENABLED[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m    [39m[38;5;197mNORM_TYPE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m2.0[39m
+[38;5;15m  [39m[38;5;197mGAMMA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.1[39m
+[38;5;15m  [39m[38;5;197mIMS_PER_BATCH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4[39m
+[38;5;15m  [39m[38;5;197mLR_SCHEDULER_NAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mWarmupMultiStepLR[39m
+[38;5;15m  [39m[38;5;197mMAX_ITER[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m200000[39m
+[38;5;15m  [39m[38;5;197mMOMENTUM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.9[39m
+[38;5;15m  [39m[38;5;197mNESTEROV[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m  [39m[38;5;197mREFERENCE_WORLD_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m  [39m[38;5;197mSTEPS[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m40000[39m
+[38;5;15m  [39m[38;5;197mWARMUP_FACTOR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.001[39m
+[38;5;15m  [39m[38;5;197mWARMUP_ITERS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m  [39m[38;5;197mWARMUP_METHOD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mlinear[39m
+[38;5;15m  [39m[38;5;197mWEIGHT_DECAY[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.0001[39m
+[38;5;15m  [39m[38;5;197mWEIGHT_DECAY_BIAS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mnull[39m
+[38;5;15m  [39m[38;5;197mWEIGHT_DECAY_NORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.0[39m
+[38;5;197mTEST[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mAUG[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mENABLED[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m    [39m[38;5;197mFLIP[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mtrue[39m
+[38;5;15m    [39m[38;5;197mMAX_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4000[39m
+[38;5;15m    [39m[38;5;197mMIN_SIZES[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m400[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m500[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m600[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m700[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m800[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m900[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m1000[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m1100[39m
+[38;5;15m    [39m[38;5;15m-[39m[38;5;15m [39m[38;5;141m1200[39m
+[38;5;15m  [39m[38;5;197mDETECTIONS_PER_IMAGE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m100[39m
+[38;5;15m  [39m[38;5;197mEVAL_PERIOD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0[39m
+[38;5;15m  [39m[38;5;197mEVAL_SAVE_PERIOD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m5000[39m
+[38;5;15m  [39m[38;5;197mEXPECTED_RESULTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mKEYPOINT_OKS_SIGMAS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mPRECISE_BN[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mENABLED[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mfalse[39m
+[38;5;15m    [39m[38;5;197mNUM_ITER[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m200[39m
+[38;5;197mVERSION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m2[39m
+[38;5;197mVIS_PERIOD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m5000[39m
+
+[32m[09/11 04:51:09 detectron2]: [0mFull config saved to all_outs/diverse_weather/config.yaml
+[32m[09/11 04:51:09 d2.utils.env]: [0mUsing a generated random seed 9379915
+['bus', 'bike', 'car', 'motor', 'person', 'rider', 'truck']
+[32m[09/11 04:51:30 fvcore.common.checkpoint]: [0m[Checkpointer] Loading from all_outs/diverse_weather/model_best.pth ...
+[32m[09/11 04:51:37 d2.data.build]: [0mDistribution of instances among all 7 categories:
+[36m|  category  | #instances   |  category  | #instances   |  category  | #instances   |
+|:----------:|:-------------|:----------:|:-------------|:----------:|:-------------|
+|    bus     | 248          |    bike    | 121          |    car     | 21655        |
+|   motor    | 49           |   person   | 1532         |   rider    | 71           |
+|   truck    | 499          |            |              |            |              |
+|   total    | 24175        |            |              |            |              |[0m
+[32m[09/11 04:51:37 d2.data.dataset_mapper]: [0m[DatasetMapper] Augmentations used in inference: [ResizeShortestEdge(short_edge_length=(600, 600), max_size=1333, sample_style='choice')]
+[32m[09/11 04:51:37 d2.data.common]: [0mSerializing 2475 elements to byte tensors and concatenating them all ...
+[32m[09/11 04:51:37 d2.data.common]: [0mSerialized dataset takes 1.84 MiB
+[32m[09/11 04:51:37 d2.evaluation.evaluator]: [0mStart inference on 2475 batches
+[32m[09/11 04:51:44 d2.evaluation.evaluator]: [0mInference done 11/2475. Dataloading: 0.0003 s/iter. Inference: 0.2491 s/iter. Eval: 0.0006 s/iter. Total: 0.2500 s/iter. ETA=0:10:15
+[32m[09/11 04:51:49 d2.evaluation.evaluator]: [0mInference done 31/2475. Dataloading: 0.0007 s/iter. Inference: 0.2493 s/iter. Eval: 0.0005 s/iter. Total: 0.2506 s/iter. ETA=0:10:12
+[32m[09/11 04:51:54 d2.evaluation.evaluator]: [0mInference done 51/2475. Dataloading: 0.0008 s/iter. Inference: 0.2496 s/iter. Eval: 0.0005 s/iter. Total: 0.2509 s/iter. ETA=0:10:08
+[32m[09/11 04:51:59 d2.evaluation.evaluator]: [0mInference done 71/2475. Dataloading: 0.0008 s/iter. Inference: 0.2499 s/iter. Eval: 0.0006 s/iter. Total: 0.2513 s/iter. ETA=0:10:04
+[32m[09/11 04:52:05 d2.evaluation.evaluator]: [0mInference done 91/2475. Dataloading: 0.0009 s/iter. Inference: 0.2501 s/iter. Eval: 0.0006 s/iter. Total: 0.2516 s/iter. ETA=0:09:59
+[32m[09/11 04:52:10 d2.evaluation.evaluator]: [0mInference done 111/2475. Dataloading: 0.0009 s/iter. Inference: 0.2503 s/iter. Eval: 0.0006 s/iter. Total: 0.2518 s/iter. ETA=0:09:55
+[32m[09/11 04:52:15 d2.evaluation.evaluator]: [0mInference done 131/2475. Dataloading: 0.0009 s/iter. Inference: 0.2506 s/iter. Eval: 0.0006 s/iter. Total: 0.2521 s/iter. ETA=0:09:50
+[32m[09/11 04:52:20 d2.evaluation.evaluator]: [0mInference done 151/2475. Dataloading: 0.0009 s/iter. Inference: 0.2508 s/iter. Eval: 0.0006 s/iter. Total: 0.2524 s/iter. ETA=0:09:46
+[32m[09/11 04:52:25 d2.evaluation.evaluator]: [0mInference done 171/2475. Dataloading: 0.0009 s/iter. Inference: 0.2509 s/iter. Eval: 0.0006 s/iter. Total: 0.2525 s/iter. ETA=0:09:41
+[32m[09/11 04:52:30 d2.evaluation.evaluator]: [0mInference done 191/2475. Dataloading: 0.0009 s/iter. Inference: 0.2509 s/iter. Eval: 0.0006 s/iter. Total: 0.2524 s/iter. ETA=0:09:36
+[32m[09/11 04:52:35 d2.evaluation.evaluator]: [0mInference done 211/2475. Dataloading: 0.0009 s/iter. Inference: 0.2508 s/iter. Eval: 0.0006 s/iter. Total: 0.2524 s/iter. ETA=0:09:31
+[32m[09/11 04:52:40 d2.evaluation.evaluator]: [0mInference done 231/2475. Dataloading: 0.0009 s/iter. Inference: 0.2510 s/iter. Eval: 0.0006 s/iter. Total: 0.2526 s/iter. ETA=0:09:26
+[32m[09/11 04:52:45 d2.evaluation.evaluator]: [0mInference done 251/2475. Dataloading: 0.0010 s/iter. Inference: 0.2511 s/iter. Eval: 0.0006 s/iter. Total: 0.2528 s/iter. ETA=0:09:22
+[32m[09/11 04:52:50 d2.evaluation.evaluator]: [0mInference done 271/2475. Dataloading: 0.0010 s/iter. Inference: 0.2511 s/iter. Eval: 0.0006 s/iter. Total: 0.2527 s/iter. ETA=0:09:17
+[32m[09/11 04:52:55 d2.evaluation.evaluator]: [0mInference done 291/2475. Dataloading: 0.0010 s/iter. Inference: 0.2513 s/iter. Eval: 0.0006 s/iter. Total: 0.2529 s/iter. ETA=0:09:12
+[32m[09/11 04:53:00 d2.evaluation.evaluator]: [0mInference done 311/2475. Dataloading: 0.0010 s/iter. Inference: 0.2515 s/iter. Eval: 0.0006 s/iter. Total: 0.2531 s/iter. ETA=0:09:07
+[32m[09/11 04:53:05 d2.evaluation.evaluator]: [0mInference done 331/2475. Dataloading: 0.0010 s/iter. Inference: 0.2515 s/iter. Eval: 0.0006 s/iter. Total: 0.2533 s/iter. ETA=0:09:02
+[32m[09/11 04:53:11 d2.evaluation.evaluator]: [0mInference done 351/2475. Dataloading: 0.0010 s/iter. Inference: 0.2516 s/iter. Eval: 0.0006 s/iter. Total: 0.2534 s/iter. ETA=0:08:58
+[32m[09/11 04:53:16 d2.evaluation.evaluator]: [0mInference done 371/2475. Dataloading: 0.0010 s/iter. Inference: 0.2517 s/iter. Eval: 0.0006 s/iter. Total: 0.2535 s/iter. ETA=0:08:53
+[32m[09/11 04:53:21 d2.evaluation.evaluator]: [0mInference done 391/2475. Dataloading: 0.0010 s/iter. Inference: 0.2518 s/iter. Eval: 0.0006 s/iter. Total: 0.2535 s/iter. ETA=0:08:48
+[32m[09/11 04:53:26 d2.evaluation.evaluator]: [0mInference done 411/2475. Dataloading: 0.0010 s/iter. Inference: 0.2518 s/iter. Eval: 0.0006 s/iter. Total: 0.2535 s/iter. ETA=0:08:43
+[32m[09/11 04:53:31 d2.evaluation.evaluator]: [0mInference done 431/2475. Dataloading: 0.0010 s/iter. Inference: 0.2518 s/iter. Eval: 0.0006 s/iter. Total: 0.2536 s/iter. ETA=0:08:38
+[32m[09/11 04:53:36 d2.evaluation.evaluator]: [0mInference done 451/2475. Dataloading: 0.0010 s/iter. Inference: 0.2519 s/iter. Eval: 0.0006 s/iter. Total: 0.2536 s/iter. ETA=0:08:33
+[32m[09/11 04:53:41 d2.evaluation.evaluator]: [0mInference done 471/2475. Dataloading: 0.0011 s/iter. Inference: 0.2519 s/iter. Eval: 0.0006 s/iter. Total: 0.2537 s/iter. ETA=0:08:28
+[32m[09/11 04:53:46 d2.evaluation.evaluator]: [0mInference done 491/2475. Dataloading: 0.0011 s/iter. Inference: 0.2520 s/iter. Eval: 0.0006 s/iter. Total: 0.2537 s/iter. ETA=0:08:23
+[32m[09/11 04:53:51 d2.evaluation.evaluator]: [0mInference done 511/2475. Dataloading: 0.0011 s/iter. Inference: 0.2521 s/iter. Eval: 0.0006 s/iter. Total: 0.2539 s/iter. ETA=0:08:18
+[32m[09/11 04:53:57 d2.evaluation.evaluator]: [0mInference done 531/2475. Dataloading: 0.0011 s/iter. Inference: 0.2523 s/iter. Eval: 0.0006 s/iter. Total: 0.2540 s/iter. ETA=0:08:13
+[32m[09/11 04:54:02 d2.evaluation.evaluator]: [0mInference done 551/2475. Dataloading: 0.0011 s/iter. Inference: 0.2524 s/iter. Eval: 0.0006 s/iter. Total: 0.2542 s/iter. ETA=0:08:08
+[32m[09/11 04:54:07 d2.evaluation.evaluator]: [0mInference done 571/2475. Dataloading: 0.0011 s/iter. Inference: 0.2525 s/iter. Eval: 0.0006 s/iter. Total: 0.2543 s/iter. ETA=0:08:04
+[32m[09/11 04:54:12 d2.evaluation.evaluator]: [0mInference done 591/2475. Dataloading: 0.0011 s/iter. Inference: 0.2525 s/iter. Eval: 0.0006 s/iter. Total: 0.2543 s/iter. ETA=0:07:59
+[32m[09/11 04:54:17 d2.evaluation.evaluator]: [0mInference done 611/2475. Dataloading: 0.0011 s/iter. Inference: 0.2526 s/iter. Eval: 0.0006 s/iter. Total: 0.2544 s/iter. ETA=0:07:54
+[32m[09/11 04:54:22 d2.evaluation.evaluator]: [0mInference done 631/2475. Dataloading: 0.0011 s/iter. Inference: 0.2527 s/iter. Eval: 0.0006 s/iter. Total: 0.2545 s/iter. ETA=0:07:49
+[32m[09/11 04:54:27 d2.evaluation.evaluator]: [0mInference done 651/2475. Dataloading: 0.0011 s/iter. Inference: 0.2528 s/iter. Eval: 0.0006 s/iter. Total: 0.2546 s/iter. ETA=0:07:44
+[32m[09/11 04:54:33 d2.evaluation.evaluator]: [0mInference done 671/2475. Dataloading: 0.0011 s/iter. Inference: 0.2528 s/iter. Eval: 0.0006 s/iter. Total: 0.2547 s/iter. ETA=0:07:39
+[32m[09/11 04:54:38 d2.evaluation.evaluator]: [0mInference done 691/2475. Dataloading: 0.0011 s/iter. Inference: 0.2529 s/iter. Eval: 0.0006 s/iter. Total: 0.2548 s/iter. ETA=0:07:34
+[32m[09/11 04:54:43 d2.evaluation.evaluator]: [0mInference done 711/2475. Dataloading: 0.0011 s/iter. Inference: 0.2530 s/iter. Eval: 0.0006 s/iter. Total: 0.2549 s/iter. ETA=0:07:29
+[32m[09/11 04:54:48 d2.evaluation.evaluator]: [0mInference done 731/2475. Dataloading: 0.0011 s/iter. Inference: 0.2531 s/iter. Eval: 0.0006 s/iter. Total: 0.2550 s/iter. ETA=0:07:24
+[32m[09/11 04:54:53 d2.evaluation.evaluator]: [0mInference done 751/2475. Dataloading: 0.0012 s/iter. Inference: 0.2532 s/iter. Eval: 0.0006 s/iter. Total: 0.2551 s/iter. ETA=0:07:19
+[32m[09/11 04:54:58 d2.evaluation.evaluator]: [0mInference done 771/2475. Dataloading: 0.0012 s/iter. Inference: 0.2533 s/iter. Eval: 0.0006 s/iter. Total: 0.2552 s/iter. ETA=0:07:14
+[32m[09/11 04:55:04 d2.evaluation.evaluator]: [0mInference done 791/2475. Dataloading: 0.0012 s/iter. Inference: 0.2534 s/iter. Eval: 0.0006 s/iter. Total: 0.2552 s/iter. ETA=0:07:09
+[32m[09/11 04:55:09 d2.evaluation.evaluator]: [0mInference done 811/2475. Dataloading: 0.0012 s/iter. Inference: 0.2534 s/iter. Eval: 0.0006 s/iter. Total: 0.2553 s/iter. ETA=0:07:04
+[32m[09/11 04:55:14 d2.evaluation.evaluator]: [0mInference done 831/2475. Dataloading: 0.0012 s/iter. Inference: 0.2535 s/iter. Eval: 0.0006 s/iter. Total: 0.2553 s/iter. ETA=0:06:59
+[32m[09/11 04:55:19 d2.evaluation.evaluator]: [0mInference done 851/2475. Dataloading: 0.0012 s/iter. Inference: 0.2535 s/iter. Eval: 0.0006 s/iter. Total: 0.2554 s/iter. ETA=0:06:54
+[32m[09/11 04:55:24 d2.evaluation.evaluator]: [0mInference done 871/2475. Dataloading: 0.0012 s/iter. Inference: 0.2535 s/iter. Eval: 0.0006 s/iter. Total: 0.2554 s/iter. ETA=0:06:49
+[32m[09/11 04:55:29 d2.evaluation.evaluator]: [0mInference done 891/2475. Dataloading: 0.0012 s/iter. Inference: 0.2535 s/iter. Eval: 0.0006 s/iter. Total: 0.2554 s/iter. ETA=0:06:44
+[32m[09/11 04:55:34 d2.evaluation.evaluator]: [0mInference done 911/2475. Dataloading: 0.0012 s/iter. Inference: 0.2536 s/iter. Eval: 0.0006 s/iter. Total: 0.2554 s/iter. ETA=0:06:39
+[32m[09/11 04:55:39 d2.evaluation.evaluator]: [0mInference done 931/2475. Dataloading: 0.0012 s/iter. Inference: 0.2536 s/iter. Eval: 0.0006 s/iter. Total: 0.2555 s/iter. ETA=0:06:34
+[32m[09/11 04:55:45 d2.evaluation.evaluator]: [0mInference done 951/2475. Dataloading: 0.0012 s/iter. Inference: 0.2536 s/iter. Eval: 0.0006 s/iter. Total: 0.2555 s/iter. ETA=0:06:29
+[32m[09/11 04:55:50 d2.evaluation.evaluator]: [0mInference done 971/2475. Dataloading: 0.0012 s/iter. Inference: 0.2536 s/iter. Eval: 0.0006 s/iter. Total: 0.2555 s/iter. ETA=0:06:24
+[32m[09/11 04:55:55 d2.evaluation.evaluator]: [0mInference done 991/2475. Dataloading: 0.0012 s/iter. Inference: 0.2536 s/iter. Eval: 0.0006 s/iter. Total: 0.2555 s/iter. ETA=0:06:19
+[32m[09/11 04:56:00 d2.evaluation.evaluator]: [0mInference done 1011/2475. Dataloading: 0.0012 s/iter. Inference: 0.2537 s/iter. Eval: 0.0006 s/iter. Total: 0.2555 s/iter. ETA=0:06:14
+[32m[09/11 04:56:05 d2.evaluation.evaluator]: [0mInference done 1031/2475. Dataloading: 0.0012 s/iter. Inference: 0.2537 s/iter. Eval: 0.0006 s/iter. Total: 0.2555 s/iter. ETA=0:06:09
+[32m[09/11 04:56:10 d2.evaluation.evaluator]: [0mInference done 1051/2475. Dataloading: 0.0012 s/iter. Inference: 0.2537 s/iter. Eval: 0.0006 s/iter. Total: 0.2556 s/iter. ETA=0:06:03
+[32m[09/11 04:56:15 d2.evaluation.evaluator]: [0mInference done 1071/2475. Dataloading: 0.0012 s/iter. Inference: 0.2538 s/iter. Eval: 0.0006 s/iter. Total: 0.2556 s/iter. ETA=0:05:58
+[32m[09/11 04:56:21 d2.evaluation.evaluator]: [0mInference done 1091/2475. Dataloading: 0.0012 s/iter. Inference: 0.2538 s/iter. Eval: 0.0006 s/iter. Total: 0.2557 s/iter. ETA=0:05:53
+[32m[09/11 04:56:26 d2.evaluation.evaluator]: [0mInference done 1111/2475. Dataloading: 0.0012 s/iter. Inference: 0.2538 s/iter. Eval: 0.0006 s/iter. Total: 0.2557 s/iter. ETA=0:05:48
+[32m[09/11 04:56:31 d2.evaluation.evaluator]: [0mInference done 1131/2475. Dataloading: 0.0012 s/iter. Inference: 0.2539 s/iter. Eval: 0.0006 s/iter. Total: 0.2557 s/iter. ETA=0:05:43
+[32m[09/11 04:56:36 d2.evaluation.evaluator]: [0mInference done 1151/2475. Dataloading: 0.0012 s/iter. Inference: 0.2539 s/iter. Eval: 0.0006 s/iter. Total: 0.2558 s/iter. ETA=0:05:38
+[32m[09/11 04:56:41 d2.evaluation.evaluator]: [0mInference done 1171/2475. Dataloading: 0.0012 s/iter. Inference: 0.2539 s/iter. Eval: 0.0006 s/iter. Total: 0.2558 s/iter. ETA=0:05:33
+[32m[09/11 04:56:46 d2.evaluation.evaluator]: [0mInference done 1191/2475. Dataloading: 0.0012 s/iter. Inference: 0.2539 s/iter. Eval: 0.0006 s/iter. Total: 0.2558 s/iter. ETA=0:05:28
+[32m[09/11 04:56:51 d2.evaluation.evaluator]: [0mInference done 1211/2475. Dataloading: 0.0012 s/iter. Inference: 0.2540 s/iter. Eval: 0.0006 s/iter. Total: 0.2559 s/iter. ETA=0:05:23
+[32m[09/11 04:56:57 d2.evaluation.evaluator]: [0mInference done 1231/2475. Dataloading: 0.0012 s/iter. Inference: 0.2540 s/iter. Eval: 0.0006 s/iter. Total: 0.2559 s/iter. ETA=0:05:18
+[32m[09/11 04:57:02 d2.evaluation.evaluator]: [0mInference done 1251/2475. Dataloading: 0.0012 s/iter. Inference: 0.2541 s/iter. Eval: 0.0006 s/iter. Total: 0.2560 s/iter. ETA=0:05:13
+[32m[09/11 04:57:07 d2.evaluation.evaluator]: [0mInference done 1271/2475. Dataloading: 0.0012 s/iter. Inference: 0.2541 s/iter. Eval: 0.0006 s/iter. Total: 0.2560 s/iter. ETA=0:05:08
+[32m[09/11 04:57:12 d2.evaluation.evaluator]: [0mInference done 1291/2475. Dataloading: 0.0012 s/iter. Inference: 0.2542 s/iter. Eval: 0.0006 s/iter. Total: 0.2560 s/iter. ETA=0:05:03
+[32m[09/11 04:57:17 d2.evaluation.evaluator]: [0mInference done 1311/2475. Dataloading: 0.0012 s/iter. Inference: 0.2542 s/iter. Eval: 0.0006 s/iter. Total: 0.2561 s/iter. ETA=0:04:58
+[32m[09/11 04:57:22 d2.evaluation.evaluator]: [0mInference done 1331/2475. Dataloading: 0.0012 s/iter. Inference: 0.2542 s/iter. Eval: 0.0006 s/iter. Total: 0.2561 s/iter. ETA=0:04:52
+[32m[09/11 04:57:28 d2.evaluation.evaluator]: [0mInference done 1351/2475. Dataloading: 0.0012 s/iter. Inference: 0.2542 s/iter. Eval: 0.0006 s/iter. Total: 0.2561 s/iter. ETA=0:04:47
+[32m[09/11 04:57:33 d2.evaluation.evaluator]: [0mInference done 1371/2475. Dataloading: 0.0012 s/iter. Inference: 0.2543 s/iter. Eval: 0.0006 s/iter. Total: 0.2562 s/iter. ETA=0:04:42
+[32m[09/11 04:57:38 d2.evaluation.evaluator]: [0mInference done 1391/2475. Dataloading: 0.0012 s/iter. Inference: 0.2543 s/iter. Eval: 0.0006 s/iter. Total: 0.2562 s/iter. ETA=0:04:37
+[32m[09/11 04:57:43 d2.evaluation.evaluator]: [0mInference done 1411/2475. Dataloading: 0.0012 s/iter. Inference: 0.2543 s/iter. Eval: 0.0006 s/iter. Total: 0.2562 s/iter. ETA=0:04:32
+[32m[09/11 04:57:48 d2.evaluation.evaluator]: [0mInference done 1431/2475. Dataloading: 0.0012 s/iter. Inference: 0.2543 s/iter. Eval: 0.0006 s/iter. Total: 0.2562 s/iter. ETA=0:04:27
+[32m[09/11 04:57:53 d2.evaluation.evaluator]: [0mInference done 1451/2475. Dataloading: 0.0012 s/iter. Inference: 0.2544 s/iter. Eval: 0.0006 s/iter. Total: 0.2562 s/iter. ETA=0:04:22
+[32m[09/11 04:57:59 d2.evaluation.evaluator]: [0mInference done 1471/2475. Dataloading: 0.0012 s/iter. Inference: 0.2544 s/iter. Eval: 0.0006 s/iter. Total: 0.2562 s/iter. ETA=0:04:17
+[32m[09/11 04:58:04 d2.evaluation.evaluator]: [0mInference done 1491/2475. Dataloading: 0.0012 s/iter. Inference: 0.2544 s/iter. Eval: 0.0006 s/iter. Total: 0.2563 s/iter. ETA=0:04:12
+[32m[09/11 04:58:09 d2.evaluation.evaluator]: [0mInference done 1511/2475. Dataloading: 0.0012 s/iter. Inference: 0.2544 s/iter. Eval: 0.0006 s/iter. Total: 0.2563 s/iter. ETA=0:04:07
+[32m[09/11 04:58:14 d2.evaluation.evaluator]: [0mInference done 1531/2475. Dataloading: 0.0012 s/iter. Inference: 0.2544 s/iter. Eval: 0.0006 s/iter. Total: 0.2563 s/iter. ETA=0:04:01
+[32m[09/11 04:58:19 d2.evaluation.evaluator]: [0mInference done 1551/2475. Dataloading: 0.0012 s/iter. Inference: 0.2544 s/iter. Eval: 0.0006 s/iter. Total: 0.2563 s/iter. ETA=0:03:56
+[32m[09/11 04:58:24 d2.evaluation.evaluator]: [0mInference done 1571/2475. Dataloading: 0.0012 s/iter. Inference: 0.2544 s/iter. Eval: 0.0006 s/iter. Total: 0.2563 s/iter. ETA=0:03:51
+[32m[09/11 04:58:29 d2.evaluation.evaluator]: [0mInference done 1591/2475. Dataloading: 0.0012 s/iter. Inference: 0.2544 s/iter. Eval: 0.0006 s/iter. Total: 0.2563 s/iter. ETA=0:03:46
+[32m[09/11 04:58:35 d2.evaluation.evaluator]: [0mInference done 1611/2475. Dataloading: 0.0012 s/iter. Inference: 0.2545 s/iter. Eval: 0.0006 s/iter. Total: 0.2563 s/iter. ETA=0:03:41
+[32m[09/11 04:58:40 d2.evaluation.evaluator]: [0mInference done 1631/2475. Dataloading: 0.0012 s/iter. Inference: 0.2545 s/iter. Eval: 0.0006 s/iter. Total: 0.2563 s/iter. ETA=0:03:36
+[32m[09/11 04:58:45 d2.evaluation.evaluator]: [0mInference done 1651/2475. Dataloading: 0.0012 s/iter. Inference: 0.2545 s/iter. Eval: 0.0006 s/iter. Total: 0.2563 s/iter. ETA=0:03:31
+[32m[09/11 04:58:50 d2.evaluation.evaluator]: [0mInference done 1671/2475. Dataloading: 0.0012 s/iter. Inference: 0.2545 s/iter. Eval: 0.0006 s/iter. Total: 0.2564 s/iter. ETA=0:03:26
+[32m[09/11 04:58:55 d2.evaluation.evaluator]: [0mInference done 1691/2475. Dataloading: 0.0012 s/iter. Inference: 0.2545 s/iter. Eval: 0.0006 s/iter. Total: 0.2564 s/iter. ETA=0:03:20
+[32m[09/11 04:59:00 d2.evaluation.evaluator]: [0mInference done 1711/2475. Dataloading: 0.0012 s/iter. Inference: 0.2545 s/iter. Eval: 0.0006 s/iter. Total: 0.2564 s/iter. ETA=0:03:15
+[32m[09/11 04:59:05 d2.evaluation.evaluator]: [0mInference done 1731/2475. Dataloading: 0.0012 s/iter. Inference: 0.2545 s/iter. Eval: 0.0006 s/iter. Total: 0.2564 s/iter. ETA=0:03:10
+[32m[09/11 04:59:11 d2.evaluation.evaluator]: [0mInference done 1751/2475. Dataloading: 0.0012 s/iter. Inference: 0.2545 s/iter. Eval: 0.0006 s/iter. Total: 0.2564 s/iter. ETA=0:03:05
+[32m[09/11 04:59:16 d2.evaluation.evaluator]: [0mInference done 1771/2475. Dataloading: 0.0012 s/iter. Inference: 0.2545 s/iter. Eval: 0.0006 s/iter. Total: 0.2564 s/iter. ETA=0:03:00
+[32m[09/11 04:59:21 d2.evaluation.evaluator]: [0mInference done 1791/2475. Dataloading: 0.0012 s/iter. Inference: 0.2546 s/iter. Eval: 0.0006 s/iter. Total: 0.2564 s/iter. ETA=0:02:55
+[32m[09/11 04:59:26 d2.evaluation.evaluator]: [0mInference done 1811/2475. Dataloading: 0.0012 s/iter. Inference: 0.2546 s/iter. Eval: 0.0006 s/iter. Total: 0.2565 s/iter. ETA=0:02:50
+[32m[09/11 04:59:31 d2.evaluation.evaluator]: [0mInference done 1831/2475. Dataloading: 0.0012 s/iter. Inference: 0.2546 s/iter. Eval: 0.0006 s/iter. Total: 0.2565 s/iter. ETA=0:02:45
+[32m[09/11 04:59:36 d2.evaluation.evaluator]: [0mInference done 1851/2475. Dataloading: 0.0012 s/iter. Inference: 0.2546 s/iter. Eval: 0.0006 s/iter. Total: 0.2565 s/iter. ETA=0:02:40
+[32m[09/11 04:59:42 d2.evaluation.evaluator]: [0mInference done 1871/2475. Dataloading: 0.0012 s/iter. Inference: 0.2546 s/iter. Eval: 0.0006 s/iter. Total: 0.2565 s/iter. ETA=0:02:34
+[32m[09/11 04:59:47 d2.evaluation.evaluator]: [0mInference done 1891/2475. Dataloading: 0.0012 s/iter. Inference: 0.2546 s/iter. Eval: 0.0006 s/iter. Total: 0.2565 s/iter. ETA=0:02:29
+[32m[09/11 04:59:52 d2.evaluation.evaluator]: [0mInference done 1911/2475. Dataloading: 0.0012 s/iter. Inference: 0.2546 s/iter. Eval: 0.0006 s/iter. Total: 0.2565 s/iter. ETA=0:02:24
+[32m[09/11 04:59:57 d2.evaluation.evaluator]: [0mInference done 1931/2475. Dataloading: 0.0012 s/iter. Inference: 0.2547 s/iter. Eval: 0.0006 s/iter. Total: 0.2565 s/iter. ETA=0:02:19
+[32m[09/11 05:00:02 d2.evaluation.evaluator]: [0mInference done 1951/2475. Dataloading: 0.0012 s/iter. Inference: 0.2547 s/iter. Eval: 0.0006 s/iter. Total: 0.2565 s/iter. ETA=0:02:14
+[32m[09/11 05:00:07 d2.evaluation.evaluator]: [0mInference done 1971/2475. Dataloading: 0.0012 s/iter. Inference: 0.2547 s/iter. Eval: 0.0006 s/iter. Total: 0.2566 s/iter. ETA=0:02:09
+[32m[09/11 05:00:12 d2.evaluation.evaluator]: [0mInference done 1991/2475. Dataloading: 0.0012 s/iter. Inference: 0.2547 s/iter. Eval: 0.0006 s/iter. Total: 0.2566 s/iter. ETA=0:02:04
+[32m[09/11 05:00:18 d2.evaluation.evaluator]: [0mInference done 2011/2475. Dataloading: 0.0012 s/iter. Inference: 0.2547 s/iter. Eval: 0.0006 s/iter. Total: 0.2566 s/iter. ETA=0:01:59
+[32m[09/11 05:00:23 d2.evaluation.evaluator]: [0mInference done 2031/2475. Dataloading: 0.0012 s/iter. Inference: 0.2547 s/iter. Eval: 0.0006 s/iter. Total: 0.2566 s/iter. ETA=0:01:53
+[32m[09/11 05:00:28 d2.evaluation.evaluator]: [0mInference done 2051/2475. Dataloading: 0.0012 s/iter. Inference: 0.2547 s/iter. Eval: 0.0006 s/iter. Total: 0.2566 s/iter. ETA=0:01:48
+[32m[09/11 05:00:33 d2.evaluation.evaluator]: [0mInference done 2071/2475. Dataloading: 0.0012 s/iter. Inference: 0.2547 s/iter. Eval: 0.0006 s/iter. Total: 0.2566 s/iter. ETA=0:01:43
+[32m[09/11 05:00:38 d2.evaluation.evaluator]: [0mInference done 2091/2475. Dataloading: 0.0012 s/iter. Inference: 0.2547 s/iter. Eval: 0.0006 s/iter. Total: 0.2566 s/iter. ETA=0:01:38
+[32m[09/11 05:00:43 d2.evaluation.evaluator]: [0mInference done 2111/2475. Dataloading: 0.0012 s/iter. Inference: 0.2547 s/iter. Eval: 0.0006 s/iter. Total: 0.2566 s/iter. ETA=0:01:33
+[32m[09/11 05:00:49 d2.evaluation.evaluator]: [0mInference done 2131/2475. Dataloading: 0.0012 s/iter. Inference: 0.2548 s/iter. Eval: 0.0006 s/iter. Total: 0.2566 s/iter. ETA=0:01:28
+[32m[09/11 05:00:54 d2.evaluation.evaluator]: [0mInference done 2151/2475. Dataloading: 0.0012 s/iter. Inference: 0.2548 s/iter. Eval: 0.0006 s/iter. Total: 0.2567 s/iter. ETA=0:01:23
+[32m[09/11 05:00:59 d2.evaluation.evaluator]: [0mInference done 2171/2475. Dataloading: 0.0012 s/iter. Inference: 0.2548 s/iter. Eval: 0.0006 s/iter. Total: 0.2567 s/iter. ETA=0:01:18
+[32m[09/11 05:01:04 d2.evaluation.evaluator]: [0mInference done 2191/2475. Dataloading: 0.0012 s/iter. Inference: 0.2548 s/iter. Eval: 0.0006 s/iter. Total: 0.2567 s/iter. ETA=0:01:12
+[32m[09/11 05:01:09 d2.evaluation.evaluator]: [0mInference done 2211/2475. Dataloading: 0.0012 s/iter. Inference: 0.2548 s/iter. Eval: 0.0006 s/iter. Total: 0.2567 s/iter. ETA=0:01:07
+[32m[09/11 05:01:14 d2.evaluation.evaluator]: [0mInference done 2231/2475. Dataloading: 0.0012 s/iter. Inference: 0.2548 s/iter. Eval: 0.0006 s/iter. Total: 0.2567 s/iter. ETA=0:01:02
+[32m[09/11 05:01:19 d2.evaluation.evaluator]: [0mInference done 2251/2475. Dataloading: 0.0012 s/iter. Inference: 0.2548 s/iter. Eval: 0.0006 s/iter. Total: 0.2567 s/iter. ETA=0:00:57
+[32m[09/11 05:01:25 d2.evaluation.evaluator]: [0mInference done 2271/2475. Dataloading: 0.0012 s/iter. Inference: 0.2548 s/iter. Eval: 0.0006 s/iter. Total: 0.2567 s/iter. ETA=0:00:52
+[32m[09/11 05:01:30 d2.evaluation.evaluator]: [0mInference done 2291/2475. Dataloading: 0.0012 s/iter. Inference: 0.2549 s/iter. Eval: 0.0006 s/iter. Total: 0.2567 s/iter. ETA=0:00:47
+[32m[09/11 05:01:35 d2.evaluation.evaluator]: [0mInference done 2311/2475. Dataloading: 0.0012 s/iter. Inference: 0.2549 s/iter. Eval: 0.0006 s/iter. Total: 0.2568 s/iter. ETA=0:00:42
+[32m[09/11 05:01:40 d2.evaluation.evaluator]: [0mInference done 2331/2475. Dataloading: 0.0012 s/iter. Inference: 0.2549 s/iter. Eval: 0.0006 s/iter. Total: 0.2568 s/iter. ETA=0:00:36
+[32m[09/11 05:01:45 d2.evaluation.evaluator]: [0mInference done 2351/2475. Dataloading: 0.0012 s/iter. Inference: 0.2549 s/iter. Eval: 0.0006 s/iter. Total: 0.2568 s/iter. ETA=0:00:31
+[32m[09/11 05:01:50 d2.evaluation.evaluator]: [0mInference done 2371/2475. Dataloading: 0.0012 s/iter. Inference: 0.2549 s/iter. Eval: 0.0006 s/iter. Total: 0.2568 s/iter. ETA=0:00:26
+[32m[09/11 05:01:56 d2.evaluation.evaluator]: [0mInference done 2391/2475. Dataloading: 0.0012 s/iter. Inference: 0.2549 s/iter. Eval: 0.0006 s/iter. Total: 0.2568 s/iter. ETA=0:00:21
+[32m[09/11 05:02:01 d2.evaluation.evaluator]: [0mInference done 2411/2475. Dataloading: 0.0012 s/iter. Inference: 0.2549 s/iter. Eval: 0.0006 s/iter. Total: 0.2568 s/iter. ETA=0:00:16
+[32m[09/11 05:02:06 d2.evaluation.evaluator]: [0mInference done 2431/2475. Dataloading: 0.0012 s/iter. Inference: 0.2549 s/iter. Eval: 0.0006 s/iter. Total: 0.2568 s/iter. ETA=0:00:11
+[32m[09/11 05:02:11 d2.evaluation.evaluator]: [0mInference done 2451/2475. Dataloading: 0.0012 s/iter. Inference: 0.2549 s/iter. Eval: 0.0006 s/iter. Total: 0.2568 s/iter. ETA=0:00:06
+[32m[09/11 05:02:16 d2.evaluation.evaluator]: [0mInference done 2471/2475. Dataloading: 0.0012 s/iter. Inference: 0.2549 s/iter. Eval: 0.0006 s/iter. Total: 0.2568 s/iter. ETA=0:00:01
+[32m[09/11 05:02:18 d2.evaluation.evaluator]: [0mTotal inference time: 0:10:34.602809 (0.256924 s / iter per device, on 1 devices)
+[32m[09/11 05:02:18 d2.evaluation.evaluator]: [0mTotal inference pure compute time: 0:10:29 (0.254923 s / iter per device, on 1 devices)
+[32m[09/11 05:02:18 d2.evaluation.pascal_voc_evaluation]: [0mEvaluating night_rainy_train using 2007 metric. Note that results do not use the official Matlab API.
+[32m[09/11 05:04:06 d2.evaluation.pascal_voc_evaluation]: [0mclasswise ap 23.88,13.17,31.83,9.18,11.81,8.51,18.38
+[32m[09/11 05:04:06 detectron2]: [0mEvaluation results for night_rainy_train in csv format:
+[32m[09/11 05:04:06 d2.evaluation.testing]: [0mcopypaste: Task: bbox
+[32m[09/11 05:04:06 d2.evaluation.testing]: [0mcopypaste: AP,AP50,AP75
+[32m[09/11 05:04:06 d2.evaluation.testing]: [0mcopypaste: 9.2314,16.6790,8.1975
