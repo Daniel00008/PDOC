@@ -48,6 +48,7 @@ import torchvision.transforms.functional as tF
 
 from modeling import add_stn_config
 from modeling import CustomPascalVOCDetectionEvaluator
+import ipdb
 
 logger = logging.getLogger("detectron2")
 
@@ -59,7 +60,6 @@ def setup(args):
     cfg.merge_from_file(model_zoo.get_config_file(cfg.BASE_YAML))
     cfg.merge_from_file(args.config_file)
     cfg.merge_from_list(args.opts)
-    #cfg.freeze()
     default_setup(cfg, args)
     return cfg
 
@@ -176,9 +176,6 @@ class CustomDatasetMapper(DatasetMapper):
            
                 jcrops = torch.stack(jitter_crops)
                 dataset_dict['jitter_randomcrops'] = jcrops
-
-         
-
         return dataset_dict
 
 class CombineLoaders(data.IterableDataset):
@@ -295,22 +292,7 @@ class Trainer(DefaultTrainer):
         data_s = data
 
         opt_phase = False
-        if len(self.off_opt_interval) and self.iter >= self.off_opt_interval[0] and self.iter < self.off_opt_interval[0]+self.off_opt_iters:
-        
-            if self.iter == self.off_opt_interval[0]:
-                self.model.offsets.data = torch.zeros(self.model.offsets.shape).cuda()
-            loss_dict_s = self.model.opt_offsets(data_s)
-            opt_phase = True
-            if self.iter+1 == self.off_opt_interval[0]+self.off_opt_iters:
-                self.off_opt_interval.pop(0)
-                
-        else:  
-            # for ind, d in enumerate(data_s):
-            #     d['image'] = self.aug(d['image'].cuda())
-            loss_dict_s = self.model(data_s)
-            # print(loss_dict_s)
-        
-        # import pdb;pdb.set_trace()
+        loss_dict_s = self.model(data_s)
         loss_dict = {}
 
         loss = 0 
@@ -586,7 +568,7 @@ def main(args):
     for dataset_name in cfg.DATASETS.TEST:
         if 'daytime_clear_test' in dataset_name :
             trainer.register_hooks([
-                    hooks.BestCheckpointer(cfg.TEST.EVAL_SAVE_PERIOD,trainer.checkpointer,f'{dataset_name}_AP50',file_prefix='model_best'),
+                    hooks.BestCheckpointer(cfg.TEST.EVAL_SAVE_PERIOD,trainer.checkpointer,f'{dataset_name}_AP50',file_prefix='daytime_clear_model_best'),
                     ])
 
     trainer.train()
@@ -596,5 +578,4 @@ if __name__ == "__main__":
     args = default_argument_parser().parse_args()
     cfg = setup(args)
     print("Command Line Args:", args)
-    
     main(args)
